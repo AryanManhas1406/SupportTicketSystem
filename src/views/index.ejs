@@ -1,0 +1,373 @@
+<!-- <div class="text-center">
+
+  <h1 class="mb-4">
+    Support Ticket System
+  </h1>
+
+  <p class="lead">
+    User Support Ticket Management System
+  </p>
+
+  <div id="mainButtons"></div>
+
+</div>
+
+<script>
+
+  const token =
+    localStorage.getItem("token");
+
+  const mainButtons =
+    document.getElementById(
+      "mainButtons"
+    );
+
+  if (token) {
+
+    mainButtons.innerHTML = `
+
+      <div class="d-flex gap-3 justify-content-center mt-4">
+
+        <a
+          href="/create-ticket"
+          class="btn btn-primary btn-lg"
+        >
+          Create Ticket
+        </a>
+
+        <button
+          onclick="logout()"
+          class="btn btn-danger btn-lg"
+        >
+          Logout
+        </button>
+
+      </div>
+
+    `;
+
+  } else {
+
+    mainButtons.innerHTML = `
+
+      <div class="mt-4">
+
+        <a
+          href="/login"
+          class="btn btn-dark btn-lg me-3"
+        >
+          Login
+        </a>
+
+        <a
+          href="/signup"
+          class="btn btn-warning btn-lg"
+        >
+          Signup
+        </a>
+
+      </div>
+
+    `;
+
+  }
+
+  function logout() {
+
+    localStorage.removeItem("token");
+
+    window.location.href = "/login";
+
+  }
+
+</script> -->
+
+<!-- <div class="text-center mt-5">
+
+  <h1 class="mb-4 fw-bold">
+    Support Ticket System
+  </h1>
+
+  <p class="lead">
+    User Support Ticket Management System
+  </p>
+
+  <div id="dashboardButtons"></div>
+
+</div>
+
+<script>
+
+  const token =
+    localStorage.getItem("token");
+
+  const container =
+    document.getElementById(
+      "dashboardButtons"
+    );
+
+  if (token) {
+
+    container.innerHTML = `
+
+      <div
+        class="
+          d-flex
+          justify-content-center
+          gap-3
+          mt-4
+          flex-wrap
+        "
+      >
+
+        <a
+          href="/create-ticket"
+          class="btn btn-primary btn-lg"
+        >
+          Create Ticket
+        </a>
+
+        <a
+          href="/api/my-tickets"
+          class="btn btn-dark btn-lg"
+        >
+          My Tickets
+        </a>
+
+        <button
+          onclick="logout()"
+          class="btn btn-danger btn-lg"
+        >
+          Logout
+        </button>
+
+      </div>
+
+    `;
+
+  } else {
+
+    container.innerHTML = `
+
+      <div
+        class="
+          d-flex
+          justify-content-center
+          gap-3
+          mt-4
+          flex-wrap
+        "
+      >
+
+        <a
+          href="/login"
+          class="btn btn-dark btn-lg"
+        >
+          Login
+        </a>
+
+        <a
+          href="/signup"
+          class="btn btn-warning btn-lg"
+        >
+          Signup
+        </a>
+
+      </div>
+
+      <div class="mt-4">
+
+        <div class="alert alert-info">
+
+          Please login to access
+          ticket functionalities
+
+        </div>
+
+      </div>
+
+    `;
+
+  }
+
+  function logout() {
+
+    localStorage.removeItem("token");
+
+    window.location.href = "/login";
+
+  }
+
+</script> -->
+
+
+<div class="container py-5 text-center">
+
+  <h1 class="display-4 fw-bold mb-4">
+    Support Ticket System
+  </h1>
+
+  <p class="lead mb-5">
+    User Support Ticket Management Platform
+  </p>
+
+  <div id="dashboardButtons"></div>
+
+</div>
+
+<script>
+
+  const token =
+    localStorage.getItem("token");
+
+  const container =
+    document.getElementById(
+      "dashboardButtons"
+    );
+
+  function parseJwt(token) {
+
+    try {
+
+      return JSON.parse(
+        atob(token.split('.')[1])
+      );
+
+    } catch (error) {
+
+      return null;
+
+    }
+  }
+
+  function logout() {
+
+    localStorage.removeItem("token");
+
+    window.location.href = "/login";
+  }
+
+  if (token) {
+
+    const decoded =
+      parseJwt(token);
+
+    const role =
+      decoded?.role;
+
+    if (role === "Admin") {
+
+      container.innerHTML = `
+
+        <div
+          class="
+            d-flex
+            justify-content-center
+            gap-3
+            flex-wrap
+          "
+        >
+
+          <a
+            href="/admin-dashboard"
+            class="btn btn-dark btn-lg"
+          >
+            Admin Dashboard
+          </a>
+
+          <button
+            onclick="logout()"
+            class="btn btn-danger btn-lg"
+          >
+            Logout
+          </button>
+
+        </div>
+
+      `;
+
+    } else {
+
+      container.innerHTML = `
+
+        <div
+          class="
+            d-flex
+            justify-content-center
+            gap-3
+            flex-wrap
+          "
+        >
+
+          <a
+            href="/create-ticket"
+            class="btn btn-primary btn-lg"
+          >
+            Create Ticket
+          </a>
+
+          <a
+            href="/my-tickets"
+            class="btn btn-dark btn-lg"
+          >
+            My Tickets
+          </a>
+
+          <button
+            onclick="logout()"
+            class="btn btn-danger btn-lg"
+          >
+            Logout
+          </button>
+
+        </div>
+
+      `;
+
+    }
+
+  } else {
+
+    container.innerHTML = `
+
+      <div
+        class="
+          d-flex
+          justify-content-center
+          gap-3
+          flex-wrap
+        "
+      >
+
+        <a
+          href="/login"
+          class="btn btn-dark btn-lg"
+        >
+          Login
+        </a>
+
+        <a
+          href="/signup"
+          class="btn btn-warning btn-lg"
+        >
+          Signup
+        </a>
+
+      </div>
+
+      <div class="mt-4">
+
+        <div class="alert alert-info">
+
+          Please login to access
+          ticket functionalities
+
+        </div>
+
+      </div>
+
+    `;
+
+  }
+
+</script>

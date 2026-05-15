@@ -1,0 +1,233 @@
+<div
+  class="container d-flex justify-content-center align-items-center"
+  style="min-height: 100vh;"
+>
+
+  <div
+    class="card shadow-lg border-0"
+    style="
+      width: 100%;
+      max-width: 650px;
+      border-radius: 22px;
+      overflow: hidden;
+    "
+  >
+
+    <div
+      class="text-white p-4"
+      style="
+        background: linear-gradient(135deg,#2563eb,#7c3aed);
+      "
+    >
+
+      <h2 class="fw-bold mb-2">
+        Create Support Ticket
+      </h2>
+
+      <p class="mb-0">
+        Submit your issue to the support team
+      </p>
+
+    </div>
+
+    <div class="p-4 bg-white">
+
+      <form id="ticketForm">
+
+        <div class="mb-4">
+
+          <label class="form-label fw-semibold">
+            Ticket Title
+          </label>
+
+          <input
+            type="text"
+            name="title"
+            class="form-control p-3"
+            placeholder="Enter ticket title"
+            required
+          />
+
+        </div>
+
+        <div class="mb-4">
+
+          <label class="form-label fw-semibold">
+            Issue Description
+          </label>
+
+          <textarea
+            name="description"
+            rows="6"
+            class="form-control p-3"
+            placeholder="Describe your issue..."
+            required
+          ></textarea>
+
+        </div>
+
+        <div class="mb-4">
+
+          <label class="form-label fw-semibold">
+            Priority Level
+          </label>
+
+          <select
+            name="priority"
+            class="form-select p-3"
+          >
+
+            <option value="Low">
+              Low
+            </option>
+
+            <option value="Medium">
+              Medium
+            </option>
+
+            <option value="High">
+              High
+            </option>
+
+          </select>
+
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-primary w-100 p-3 fw-bold"
+          style="
+            border-radius: 12px;
+            background:#2563eb;
+            border:none;
+          "
+        >
+          Create Ticket
+        </button>
+
+      </form>
+
+      <div
+        id="messageBox"
+        class="mt-4 text-center"
+      ></div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+  const form =
+    document.getElementById("ticketForm");
+
+  const messageBox =
+    document.getElementById("messageBox");
+
+  form.addEventListener(
+    "submit",
+    async (e) => {
+
+      e.preventDefault();
+
+      const token =
+        localStorage.getItem("token");
+
+      if (!token) {
+
+        messageBox.innerHTML = `
+
+          <div class="alert alert-danger">
+            Please login first
+          </div>
+
+        `;
+
+        return;
+      }
+
+      const formData =
+        new FormData(form);
+
+      const data = {
+
+        title:
+          formData.get("title"),
+
+        description:
+          formData.get("description"),
+
+        priority:
+          formData.get("priority")
+
+      };
+
+      try {
+
+        const response =
+          await fetch("/tickets", {
+
+            method: "POST",
+
+            headers: {
+
+              "Content-Type":
+                "application/json",
+
+              Authorization:
+                `Bearer ${token}`
+
+            },
+
+            body:
+              JSON.stringify(data)
+
+          });
+
+        const result =
+          await response.json();
+
+        console.log(result);
+
+        if (result.success) {
+
+          messageBox.innerHTML = `
+
+            <div class="alert alert-success">
+              Ticket Created Successfully
+            </div>
+
+          `;
+
+          form.reset();
+
+        } else {
+
+          messageBox.innerHTML = `
+
+            <div class="alert alert-danger">
+              ${result.message}
+            </div>
+
+          `;
+        }
+
+      } catch (error) {
+
+        console.log(error);
+
+        messageBox.innerHTML = `
+
+          <div class="alert alert-danger">
+            Something went wrong
+          </div>
+
+        `;
+      }
+
+    }
+  );
+
+</script>
