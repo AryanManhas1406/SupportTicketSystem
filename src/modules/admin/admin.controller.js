@@ -1,77 +1,112 @@
-
-
 const Ticket =
-  require("../tickets/ticket.model");
+require("../tickets/ticket.model");
 
 const Reply =
-  require("../tickets/reply.model");
+require("../tickets/reply.model");
+
+
 
 const replyToTicket =
-  async (req, res) => {
+async(req,res)=>{
 
-    try {
+   try{
 
       const { id } =
-        req.params;
+      req.params;
+
+
+
+
 
       const {
-        message,
-        status
+         message,
+         status
       } = req.body;
 
+
+
+
+
+
       const ticket =
-        await Ticket.findById(id);
+      await Ticket.findById(id);
 
-      if (!ticket) {
 
-        return res.status(404).json({
-          message: "Ticket not found"
-        });
 
+
+
+      if(!ticket){
+
+         return res.status(404).render(
+            "error",
+            {
+               message:"Ticket not found"
+            }
+         );
       }
 
-      const reply =
-        await Reply.create({
 
-          message,
 
-          sender: req.user.id,
 
-          ticket: id
 
-        });
 
-      if (status) {
 
-        ticket.status = status;
+      // CREATE REPLY
 
-        await ticket.save();
+      await Reply.create({
 
-      }
+         message,
 
-      res.status(201).json({
+         sender:req.user.id,
 
-        success: true,
-
-        message:
-          "Reply sent successfully",
-
-        reply,
-
-        updatedStatus:
-          ticket.status
+         ticket:id
 
       });
 
-    } catch (error) {
+
+
+
+
+
+
+
+      // UPDATE STATUS
+
+      if(status){
+
+         ticket.status = status;
+
+         await ticket.save();
+      }
+
+
+
+
+
+
+
+
+      // REDIRECT
+
+      res.redirect(
+         "/admin/tickets"
+      );
+
+
+
+
+   }catch(error){
 
       res.status(500).json({
-        message: error.message
-      });
 
-    }
-  };
+         message:error.message
+
+      });
+   }
+};
+
+
+
 
 module.exports =
-  replyToTicket;
-
+replyToTicket;

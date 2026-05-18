@@ -4,11 +4,19 @@ const path = require("path");
 
 const authRoutes = require("./modules/auth/auth.routes");
 const ticketRoutes = require("./modules/tickets/ticket.routes");
+const cookieParser =
+require("cookie-parser");
+const globalUserMiddleware =
+require("./middlewares/globalUserMiddleware");
 
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
+
+
 app.use(express.json());
+app.use(cookieParser());
+app.use(globalUserMiddleware);
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -19,11 +27,14 @@ app.set("layout", "layout/main");
 app.get("/", (req, res) => res.render("index"));
 app.get("/signup", (req, res) => res.render("auth/signup"));
 app.get("/login", (req, res) => res.render("auth/login"));
-app.get("/create-ticket", (req, res) => res.render("tickets/create-ticket"));
-app.get("/my-tickets", (req, res) => res.render("tickets/myTickets"));
-app.get("/admin-dashboard", (req, res) => res.render("adminDashboard"));
+
+
 
 app.use("/", authRoutes);
 app.use("/", ticketRoutes);
+app.use(
+   "/blogs",
+   require("./modules/blogs/user/blog.routes")
+);
 
 module.exports = app;

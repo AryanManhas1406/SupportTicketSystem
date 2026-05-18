@@ -28,12 +28,24 @@ router.post(
   createTicket
 );
 router.get(
-  "/api/my-tickets",
+   "/create-ticket",
+
+   authMiddleware,
+
+   (req,res)=>{
+
+      res.render(
+         "tickets/create-ticket"
+      );
+   }
+);
+router.get(
+  "/my-tickets",
   authMiddleware,
   getMyTickets
 );
 router.get(
-  "/api/admin/tickets",
+  "/admin/tickets",
 
   authMiddleware,
 
@@ -43,7 +55,7 @@ router.get(
 );
 
 router.post(
-  "/api/tickets/:id/reply",
+  "/tickets/:id/reply",
 
   authMiddleware,
 

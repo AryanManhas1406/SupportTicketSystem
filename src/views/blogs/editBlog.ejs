@@ -1,0 +1,183 @@
+<div class="container mt-5">
+
+   <div class="row justify-content-center">
+
+      <div class="col-md-8">
+
+         <div class="card shadow border-0">
+
+
+
+
+            <!-- HEADER -->
+
+            <div
+               class="card-header text-white"
+               style="
+                  background:
+                  linear-gradient(
+                     135deg,
+                     #2563eb,
+                     #7c3aed
+                  );
+               "
+            >
+
+               <h2 class="mb-0">
+
+                  Edit Blog
+
+               </h2>
+
+            </div>
+
+
+
+
+
+
+
+
+            <!-- BODY -->
+
+            <div class="card-body p-4">
+
+
+
+
+               <form
+                  action="/blogs/edit/<%= blog._id %>"
+                  method="POST"
+               >
+
+
+
+
+
+
+                  <!-- TITLE -->
+
+                  <div class="mb-4">
+
+                     <label class="form-label fw-bold">
+
+                        Blog Title
+
+                     </label>
+
+                     <input
+                        type="text"
+                        name="title"
+                        class="form-control p-3"
+                        value="<%= blog.title %>"
+                        required
+                     >
+
+                  </div>
+
+
+
+
+
+
+
+
+
+                  <!-- DESCRIPTION -->
+
+                  <div class="mb-4">
+
+                     <label class="form-label fw-bold">
+
+                        Blog Description
+
+                     </label>
+
+                     <textarea
+                        name="description"
+                        rows="10"
+                        class="form-control p-3"
+                        required
+                     ><%= blog.description %></textarea>
+
+                  </div>
+
+
+
+
+
+
+
+
+
+
+                  <!-- STATUS INFO -->
+
+                  <div class="alert alert-warning">
+
+                     After updating,
+                     your blog status
+                     will become
+
+                     <strong>
+
+                        Pending
+
+                     </strong>
+
+                     until admin approval.
+
+                  </div>
+
+
+
+
+
+
+
+
+
+
+                  <!-- BUTTONS -->
+
+                  <div class="d-flex gap-3">
+
+
+
+
+                     <button
+                        type="submit"
+                        class="btn btn-primary px-4"
+                     >
+
+                        Update Blog
+
+                     </button>
+
+
+
+
+
+
+                     <a
+                        href="/blogs/my-blogs"
+                        class="btn btn-secondary px-4"
+                     >
+
+                        Cancel
+
+                     </a>
+
+                  </div>
+
+               </form>
+
+            </div>
+
+         </div>
+
+      </div>
+
+   </div>
+
+</div>

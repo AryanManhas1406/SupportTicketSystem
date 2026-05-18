@@ -8,49 +8,207 @@
       >
          Ticket System
       </a>
-<script>
-   container.innerHTML = `
 
-         <div>
 
-         <a
-            href="/login"
-            class="btn btn-light me-2"
-         >
-            Login
-         </a>
 
-         <a
-            href="/signup"
-            class="btn btn-warning"
-         >
-            Signup
-         </a>
+
+
+
+      <div class="d-flex align-items-center gap-3">
+
+
+
+
+         <!-- USER LOGGED IN -->
+
+         <% if(user){ %>
+
+
+
+
+
+
+
+            <!-- NORMAL USER -->
+
+            <% if(user.role !== "admin"){ %>
+
+
+
+
+
+               <!-- MY TICKETS -->
+
+               <a
+                  href="/my-tickets"
+                  class="btn btn-outline-light"
+               >
+                  My Tickets
+               </a>
+
+
+
+
+
+
+               <!-- CREATE TICKET -->
+
+               <a
+                  href="/create-ticket"
+                  class="btn btn-outline-warning"
+               >
+                  Create Ticket
+               </a>
+
+
+
+
+
+
+               <!-- CREATE BLOG -->
+
+               <a
+                  href="/blogs/create"
+                  class="btn btn-outline-info"
+               >
+                  Create Blog
+               </a>
+
+
+
+
+
+
+               <!-- MY BLOGS -->
+
+               <a
+                  href="/blogs/my-blogs"
+                  class="btn btn-outline-primary"
+               >
+                  My Blogs
+               </a>
+
+
+
+
+
+
+               <!-- APPROVED BLOGS -->
+
+               <a
+                  href="/blogs"
+                  class="btn btn-outline-success"
+               >
+                  Approved Blogs
+               </a>
+
+            <% } %>
+
+
+
+
+
+
+
+
+
+            <!-- ADMIN -->
+
+            <% if(user.role === "admin"){ %>
+
+
+
+
+
+               <!-- ADMIN TICKETS -->
+
+               <a
+                  href="/admin/tickets"
+                  class="btn btn-outline-warning"
+               >
+                  Support Tickets
+               </a>
+
+
+
+
+
+
+               <!-- ALL BLOGS -->
+
+               <a
+                  href="/blogs/admin/all"
+                  class="btn btn-outline-info"
+               >
+                  All Blogs
+               </a>
+
+            <% } %>
+
+
+
+
+
+
+
+
+
+
+            <!-- LOGOUT -->
+
+            <a
+               href="/logout"
+               class="btn btn-danger"
+            >
+               Logout
+            </a>
+
+
+
+
+
+
+         <% } else { %>
+
+
+
+
+
+
+
+
+
+
+            <!-- GUEST USER -->
+
+            <a
+               href="/login"
+               class="btn btn-light me-2"
+            >
+               Login
+            </a>
+
+
+
+
+
+
+            <a
+               href="/signup"
+               class="btn btn-warning"
+            >
+               Signup
+            </a>
+
+
+
+
+
+
+         <% } %>
 
       </div>
 
    </div>
-
-      `;
-</script>
-      <!-- <div>
-
-         <a
-            href="/login"
-            class="btn btn-light me-2"
-         >
-            Login
-         </a>
-
-         <a
-            href="/signup"
-            class="btn btn-warning"
-         >
-            Signup
-         </a>
-
-      </div>
-
-   </div> -->
 
 </nav>

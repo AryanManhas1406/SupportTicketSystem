@@ -1,0 +1,209 @@
+<div class="container mt-5">
+
+   <div class="mb-5 text-center">
+
+      <h1 class="fw-bold">
+
+         Admin Blog Panel
+
+      </h1>
+
+      <p class="text-muted">
+
+         Approve or reject user blogs
+
+      </p>
+
+   </div>
+
+
+
+
+
+
+
+   <% if(blogs.length === 0){ %>
+
+      <div class="alert alert-info">
+
+         No blogs found.
+
+      </div>
+
+   <% } %>
+
+
+
+
+
+
+
+
+   <div class="row">
+
+      <% blogs.forEach(blog => { %>
+
+         <div class="col-md-6 mb-4">
+
+            <div class="card shadow h-100">
+
+               <div class="card-body">
+
+
+
+
+
+                  <!-- TITLE -->
+
+                  <h3 class="fw-bold">
+
+                     <%= blog.title %>
+
+                  </h3>
+
+
+
+
+
+
+
+                  <!-- USER -->
+
+                  <p class="text-muted">
+
+                     By:
+
+                     <strong>
+
+                        <%= blog.user?.name %>
+
+                     </strong>
+
+                  </p>
+
+
+
+
+
+
+
+
+                  <!-- DESCRIPTION -->
+
+                  <p>
+
+                     <%= blog.description.substring(0,200) %>...
+
+                  </p>
+
+
+
+
+
+
+
+
+                  <!-- STATUS -->
+
+                  <p>
+
+                     Current Status:
+
+
+
+                     <% if(blog.status === "approved"){ %>
+
+                        <span class="badge bg-success">
+
+                           Approved
+
+                        </span>
+
+                     <% } else if(blog.status === "rejected"){ %>
+
+                        <span class="badge bg-danger">
+
+                           Rejected
+
+                        </span>
+
+                     <% } else { %>
+
+                        <span class="badge bg-warning text-dark">
+
+                           Pending
+
+                        </span>
+
+                     <% } %>
+
+                  </p>
+
+
+
+
+
+
+
+
+                  <!-- ACTION BUTTONS -->
+
+                  <div class="d-flex gap-2 mt-3">
+
+
+
+
+                     <!-- APPROVE -->
+
+                     <form
+                        action="/blogs/approve/<%= blog._id %>"
+                        method="POST"
+                     >
+
+                        <button
+                           type="submit"
+                           class="btn btn-success"
+                        >
+
+                           Approve
+
+                        </button>
+
+                     </form>
+
+
+
+
+
+
+                     <!-- REJECT -->
+
+                     <form
+                        action="/blogs/reject/<%= blog._id %>"
+                        method="POST"
+                     >
+
+                        <button
+                           type="submit"
+                           class="btn btn-danger"
+                        >
+
+                           Reject
+
+                        </button>
+
+                     </form>
+
+                  </div>
+
+               </div>
+
+            </div>
+
+         </div>
+
+      <% }) %>
+
+   </div>
+
+</div>

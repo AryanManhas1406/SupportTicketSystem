@@ -22,10 +22,7 @@ const createTicket =
 
         });
 
-      res.status(201).json({
-        success: true,
-        ticket
-      });
+     res.redirect("/my-tickets");;
 
     } catch (error) {
 
@@ -49,15 +46,10 @@ const createTicket =
           createdAt: -1
         });
 
-      res.status(200).json({
-
-        success: true,
-
-        count: tickets.length,
-
-        tickets
-
-      });
+      res.render(
+   "tickets/myTickets",
+   { tickets }
+);
 
     } catch (error) {
 
@@ -81,14 +73,10 @@ const createTicket =
           createdAt: -1
         });
 
-      res.status(200).json({
-
-        success: true,
-
-        tickets
-
-      });
-
+      res.render(
+   "adminDashboard",
+   { tickets }
+);
     } catch (error) {
 
       res.status(500).json({

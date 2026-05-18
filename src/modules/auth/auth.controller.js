@@ -38,44 +38,105 @@ const signup = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  try {
-    const { email, password } = req.body;
 
-    const user = await User.findOne({ email });
+  try {
+
+    const {
+      email,
+      password
+    } = req.body;
+
+
+
+
+
+    const user =
+    await User.findOne({ email });
 
     if (!user) {
+
       return res.status(404).json({
         message: "User not found"
       });
     }
 
-    const isMatch = await bcrypt.compare(
+
+
+
+
+
+    const isMatch =
+    await bcrypt.compare(
       password,
       user.password
     );
 
     if (!isMatch) {
+
       return res.status(401).json({
         message: "Invalid credentials"
       });
     }
 
-    const token = generateToken(user);
 
-    res.json({
-      success: true,
+
+
+
+
+
+    // generate jwt
+
+    const token =
+    generateToken(user);
+
+
+
+
+
+
+    // store in cookie
+
+    res.cookie(
+      "token",
       token,
-      user
-    });
+      {
+        httpOnly: true,
+
+        secure: false,
+
+        maxAge:
+        24 * 60 * 60 * 1000
+      }
+    );
+
+
+
+
+
+
+
+    // IMPORTANT
+
+    return res.redirect("/");
+
+
+
 
   } catch (error) {
-    res.status(500).json({
+
+    return res.status(500).json({
       message: error.message
     });
   }
 };
+const logout = (req,res)=>{
+
+   res.clearCookie("token");
+
+   res.redirect("/login");
+};
 
 module.exports = {
   signup,
-  login
+  login,logout
 };
