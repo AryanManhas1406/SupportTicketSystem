@@ -34,7 +34,7 @@ app.use("/", authRoutes);
 app.use("/", ticketRoutes);
 app.use(
    "/blogs",
-   require("./modules/blogs/user/blog.routes")
+   require("./modules/blogs/blog.routes")
 );
 
 module.exports = app;

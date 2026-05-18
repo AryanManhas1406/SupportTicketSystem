@@ -8,10 +8,10 @@ require("./blog.controller");
 // your auth middleware
 
 const authMiddleware =
-require("../../../middlewares/authMiddleware");
+require("../../middlewares/authMiddleware");
 
 const adminMiddleware =
-require("../../../middlewares/adminMiddleware");
+require("../../middlewares/adminMiddleware");
 
 
 
